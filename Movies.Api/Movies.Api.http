@@ -1,0 +1,40 @@
+@Movies.Api_HostAddress = http://localhost:5064
+
+GET {{Movies.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+### Create new Movie
+POST {{Movies.Api_HostAddress}}/api/movies
+Content-Type: application/json
+
+{
+  "title": "string",
+  "yearOfRelease": 0,
+  "genres": [
+    "string"
+  ]
+}
+
+### Get Movie By Id
+GET {{Movies.Api_HostAddress}}/api/movies/6347bc05-5dbf-4e27-a6ca-00da75d0c5f2
+Accept: application/application/json
+
+### Get All Movies
+GET {{Movies.Api_HostAddress}}/api/movies
+Accept: application/application/json
+
+### Update new Movie
+PUT {{Movies.Api_HostAddress}}/api/movies/2426ef16-b339-4b37-accc-3d3824b3f2f1
+Content-Type: application/json
+
+{
+  "title": "Matrix",
+  "yearOfRelease": 2000,
+  "genres": [
+    "fiction"
+  ]
+}
+
+### Delete Movie
+DELETE {{Movies.Api_HostAddress}}/api/movies/7b1872a7-c6c9-4803-b002-28b587e1be81
+

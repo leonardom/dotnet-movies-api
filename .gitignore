@@ -1,0 +1,81 @@
+## Ignore build results
+bin/
+obj/
+[Ll]og/
+Generated_Code/
+
+## User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+*.sdf
+*.VC.db
+*.vscode/
+
+## OS-generated files
+.DS_Store
+Thumbs.db
+
+## Rider-specific
+.idea/
+
+## VS Code settings
+.vscode/
+
+## ASP.NET Core
+wwwroot/
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json
+secrets.json
+
+## dotnet tools
+tools/
+.dotnet-tools.json
+
+## NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+
+## Logs
+*.log
+
+## Test Results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+## Entity Framework
+Migrations/
+
+## Publish output
+publish/
+*.publish.xml
+
+## Others
+_ReSharper*/
+*.resharper
+*.vs/
+*.dbmdl
+*.bak
+*.orig
+*.cache
+*.tmp
+*.sql
+
+## Local development environment
+.env
+.env.*
+
+## Global JSON
+global.json
+
+## JetBrains Rider
+.idea/
+*.sln.iml
