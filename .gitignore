@@ -3,6 +3,7 @@ bin/
 obj/
 [Ll]og/
 Generated_Code/
+.docker/
 
 ## User-specific files
 *.user

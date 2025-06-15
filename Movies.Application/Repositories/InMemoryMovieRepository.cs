@@ -1,4 +1,3 @@
-using System;
 using Movies.Application.Models;
 
 namespace Movies.Application.Repositories;
@@ -42,5 +41,11 @@ public class InMemoryMovieRepository : IMovieRepository
   {
     var count = _movies.RemoveAll(m => m.Id == id);
     return Task.FromResult(count > 0);
+  }
+
+  public Task<bool> ExistsByIdAsync(Guid id)
+  {
+    var exists = _movies.Exists(m => m.Id == id);
+    return Task.FromResult(exists);
   }
 }
