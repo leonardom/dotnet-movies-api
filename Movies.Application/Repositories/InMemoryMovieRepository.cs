@@ -24,6 +24,12 @@ public class InMemoryMovieRepository : IMovieRepository
     return Task.FromResult(movie);
   }
 
+  public Task<Movie?> GetBySlugAsync(string slug)
+  {
+    var movie = _movies.SingleOrDefault(m => m.Slug == slug);
+    return Task.FromResult(movie);
+  }
+
   public Task<bool> UpdateAsync(Movie movie)
   {
     var index = _movies.FindIndex(m => m.Id == movie.Id);

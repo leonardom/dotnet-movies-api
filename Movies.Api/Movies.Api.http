@@ -1,22 +1,23 @@
 @Movies.Api_HostAddress = http://localhost:5064
 
-GET {{Movies.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
 ### Create new Movie
 POST {{Movies.Api_HostAddress}}/api/movies
 Content-Type: application/json
 
 {
-  "title": "string",
-  "yearOfRelease": 0,
+  "title": "The Matrix",
+  "yearOfRelease": 1999,
   "genres": [
-    "string"
+    "fiction", "action"
   ]
 }
 
 ### Get Movie By Id
-GET {{Movies.Api_HostAddress}}/api/movies/6347bc05-5dbf-4e27-a6ca-00da75d0c5f2
+GET {{Movies.Api_HostAddress}}/api/movies/8a798699-fc24-4f31-9bf1-df78efdb86d2
+Accept: application/application/json
+
+### Get Movie By Slug
+GET {{Movies.Api_HostAddress}}/api/movies/the-matrix-1999
 Accept: application/application/json
 
 ### Get All Movies
