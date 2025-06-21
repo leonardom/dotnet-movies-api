@@ -1,10 +1,11 @@
 ### Create new Movie
 POST {{apiBase}}/api/movies
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMGY2MThkMS01Mzk2LTQ0MmItYjJhNi1kYjFlOTc2OGFlZmIiLCJzdWIiOiJqb2huZG9lQHRlc3QuY29tIiwiZW1haWwiOiJqb2huZG9lQHRlc3QuY29tIiwidXNlcmlkIjoiM2ZhODVmNjQtNTcxNy00NTYyLWIzZmMtMmM5NjNmNjZhZmE2IiwiaXNBZG1pbiI6dHJ1ZSwibmJmIjoxNzUwNTAxNTIxLCJleHAiOjE3NTA1MDg3MjEsImlhdCI6MTc1MDUwMTUyMSwiaXNzIjoiaHR0cHM6Ly9pZC5zZXJ2aWNlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbW92aWVzLnNlcnZpY2UuY29tIn0.VwofipYMeZbO6opiPle_qb5h1ObIbGsh6aGdNCtrWW4
 
 {
-  "title": "The Matrix",
-  "yearOfRelease": 1999,
+  "title": "The Matrix Reloaded",
+  "yearOfRelease": 2003,
   "genres": [
     "fiction"
   ]
