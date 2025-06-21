@@ -1,10 +1,10 @@
 ### Create new Movie
 POST {{apiBase}}/api/movies
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMGY2MThkMS01Mzk2LTQ0MmItYjJhNi1kYjFlOTc2OGFlZmIiLCJzdWIiOiJqb2huZG9lQHRlc3QuY29tIiwiZW1haWwiOiJqb2huZG9lQHRlc3QuY29tIiwidXNlcmlkIjoiM2ZhODVmNjQtNTcxNy00NTYyLWIzZmMtMmM5NjNmNjZhZmE2IiwiaXNBZG1pbiI6dHJ1ZSwibmJmIjoxNzUwNTAxNTIxLCJleHAiOjE3NTA1MDg3MjEsImlhdCI6MTc1MDUwMTUyMSwiaXNzIjoiaHR0cHM6Ly9pZC5zZXJ2aWNlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbW92aWVzLnNlcnZpY2UuY29tIn0.VwofipYMeZbO6opiPle_qb5h1ObIbGsh6aGdNCtrWW4
+Authorization: Bearer {{token}}
 
 {
-  "title": "The Matrix Reloaded",
+  "title": "The Matrix Revolutions",
   "yearOfRelease": 2003,
   "genres": [
     "fiction"
@@ -13,6 +13,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMGY2MThkM
 
 ### Create new Movie
 POST {{apiBase}}/api/movies
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -25,18 +26,22 @@ Content-Type: application/json
 
 ### Get Movie By Id
 GET {{apiBase}}/api/movies/23020fff-ac63-45b8-8bfb-40ff5f87aee7
+Authorization: Bearer {{token}}
 Accept: application/application/json
 
 ### Get Movie By Slug
 GET {{apiBase}}/api/movies/the-matrix-1999
+Authorization: Bearer {{token}}
 Accept: application/application/json
 
 ### Get All Movies
 GET {{apiBase}}/api/movies
+Authorization: Bearer {{token}}
 Accept: application/application/json
 
 ### Update new Movie
 PUT {{apiBase}}/api/movies/23020fff-ac63-45b8-8bfb-40ff5f87aee7
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -49,4 +54,5 @@ Content-Type: application/json
 
 ### Delete Movie
 DELETE {{apiBase}}/api/movies/7b1872a7-c6c9-4803-b002-28b587e1be81
+Authorization: Bearer {{token}}
 

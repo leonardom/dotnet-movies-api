@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Movies.Api;
 using Movies.Api.Middlewares;
 using Movies.Application;
 using Movies.Application.Database;
@@ -27,7 +28,17 @@ builder.Services.AddAuthentication(opt =>
     };
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(opt =>
+{
+    opt.AddPolicy(AuthConstants.AdminUserPolicyName, 
+        p => p.RequireClaim(AuthConstants.AdminRoleClaimName, "true"));
+
+    opt.AddPolicy(AuthConstants.EditorUserPolicyName,
+        p => p.RequireAssertion(ctx =>
+            ctx.User.HasClaim(m => m is { Type: AuthConstants.AdminRoleClaimName, Value: "true" }) ||
+            ctx.User.HasClaim(m => m is { Type: AuthConstants.EditorRoleClaimName, Value: "true" })
+        ));
+});
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
