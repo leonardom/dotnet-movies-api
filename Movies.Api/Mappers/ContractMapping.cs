@@ -14,7 +14,7 @@ public static class ContractMapping
       Id = Guid.NewGuid(),
       Title = request.Title,
       YearOfRelease = request.YearOfRelease,
-      Genres = request.Genres.ToList()
+      Genres = request.Genres.ToList(),
     };
   }
 
@@ -25,7 +25,7 @@ public static class ContractMapping
       Id = id,
       Title = request.Title,
       YearOfRelease = request.YearOfRelease,
-      Genres = request.Genres.ToList()
+      Genres = request.Genres.ToList(),
     };
   }
 
@@ -37,7 +37,9 @@ public static class ContractMapping
       Title = movie.Title,
       Slug = movie.Slug,
       YearOfRelease = movie.YearOfRelease,
-      Genres = movie.Genres
+      Genres = movie.Genres,
+      Rating = movie.Rating,
+      UserRating = movie.UserRating,
     };
   }
 
@@ -47,5 +49,15 @@ public static class ContractMapping
     {
       Items = movies.Select(MapToResponse)
     };
+  }
+
+  public static IEnumerable<MovieRatingResponse> MapToResponse(this IEnumerable<MovieRating> ratings)
+  {
+    return ratings.Select(r => new MovieRatingResponse
+    {
+      Rating = r.Rating,
+      MovieId = r.MovieId,
+      Slug = r.Slug
+    });
   }
 }

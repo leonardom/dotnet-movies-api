@@ -9,4 +9,6 @@ public class MovieResponse
   public required string Slug { get; init; }
   public required int YearOfRelease { get; init; }
   public required IEnumerable<string> Genres { get; init; } = [];
+  public int? UserRating  { get; init; }
+  public float? Rating { get; init; }
 }

@@ -30,7 +30,7 @@ Authorization: Bearer {{token}}
 Accept: application/application/json
 
 ### Get Movie By Slug
-GET {{apiBase}}/api/movies/the-matrix-1999
+GET {{apiBase}}/api/movies/the-matrix-reloaded-2003
 Authorization: Bearer {{token}}
 Accept: application/application/json
 
@@ -56,3 +56,19 @@ Content-Type: application/json
 DELETE {{apiBase}}/api/movies/7b1872a7-c6c9-4803-b002-28b587e1be81
 Authorization: Bearer {{token}}
 
+### Rate Movie
+PUT {{apiBase}}/api/movies/23020fff-ac63-45b8-8bfb-40ff5f87aee7/ratings
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "rating": 5
+}
+
+### Delete Movie Rating
+DELETE {{apiBase}}/api/movies/23020fff-ac63-45b8-8bfb-40ff5f87aee7/ratings
+Authorization: Bearer {{token}}
+
+### Get User Movie Ratings
+GET {{apiBase}}/api/ratings/me
+Authorization: Bearer {{token}}

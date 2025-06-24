@@ -15,5 +15,15 @@ public static class ApiEndpoints
     public const string GetAll = ResourceBase;
     public const string Update = $"{ResourceBase}/{{id:guid}}";
     public const string Delete = $"{ResourceBase}/{{id:guid}}";
+    
+    public const string Rate =  $"{ResourceBase}/{{id:guid}}/ratings";
+    public const string DeleteRating = $"{ResourceBase}/{{id:guid}}/ratings";
+  }
+
+  public static class Ratings
+  {
+    private const string ResourceBase = $"{ApiBase}/ratings";
+    
+    public const string GetUserRatings = $"{ResourceBase}/me";
   }
 }

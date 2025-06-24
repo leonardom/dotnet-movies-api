@@ -12,18 +12,18 @@ public class InMemoryMovieRepository : IMovieRepository
     return Task.FromResult(true);
   }
 
-  public Task<IEnumerable<Movie>> GetAllAsync(CancellationToken cancellationToken = default)
+  public Task<IEnumerable<Movie>> GetAllAsync(Guid? userId = null, CancellationToken cancellationToken = default)
   {
     return Task.FromResult(_movies.AsEnumerable());
   }
 
-  public Task<Movie?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+  public Task<Movie?> GetByIdAsync(Guid id, Guid? userId = null, CancellationToken cancellationToken = default)
   {
     var movie = _movies.SingleOrDefault(m => m.Id == id);
     return Task.FromResult(movie);
   }
 
-  public Task<Movie?> GetBySlugAsync(string slug, CancellationToken cancellationToken = default)
+  public Task<Movie?> GetBySlugAsync(string slug, Guid? userId = null, CancellationToken cancellationToken = default)
   {
     var movie = _movies.SingleOrDefault(m => m.Slug == slug);
     return Task.FromResult(movie);
