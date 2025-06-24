@@ -2,7 +2,16 @@ namespace Movies.Application.Models;
 
 public class GetAllMoviesOptions
 {
-    public string? Title { get; set; }
-    public int? YearOfRelease { get; set; }
+    public string? Title { get; init; }
+    public int? YearOfRelease { get; init; }
     public Guid? UserId { get; set; }
+    public string? SortField { get; init; }
+    public SortOrder? SortOrder { get; init; }
+}
+
+public enum SortOrder
+{
+    Unsorted,
+    Ascending,
+    Descending
 }

@@ -41,28 +41,39 @@ public class MovieRepository(
     {
         logger.LogDebug("Getting all movies with options: {}", JsonSerializer.Serialize(options));
         using var connection = await dbConnectionFactory.CreateDbConnectionAsync(cancellationToken);
-        const string sql = """
-                               SELECT 
-                                   m.id, 
-                                   m.slug, 
-                                   m.title, 
-                                   m.year_of_release, 
-                                   string_agg(distinct g.name, ',') as genres,
-                                   ROUND(AVG(mr.rating), 1) as rating,
-                                   ur.rating as user_rating
-                               FROM 
-                                   movies m 
-                                     INNER JOIN movies_genres g ON m.id = g.movie_id
-                                     LEFT JOIN ratings mr ON mr.movie_id = m.id
-                                     LEFT JOIN ratings ur ON ur.user_id = @userId 
-                                                                 and ur.movie_id = m.id
-                               WHERE 
-                                   (@title is null or m.title ilike ('%' || @title || '%'))
-                                   AND (@yearOfRelease is null or m.year_of_release = @yearOfRelease)  
-                               GROUP BY 
-                                   id, 
-                                   user_rating
-                           """;
+        
+        var orderBy = string.Empty;
+        if (options.SortField is not null)
+        {
+            orderBy = $"""
+                        , m.{options.SortField}
+                        ORDER BY m.{options.SortField} {(options.SortOrder == SortOrder.Descending ? "DESC" : "ASC")}
+                      """;
+        }
+        
+        var sql = $"""
+                       SELECT 
+                           m.id, 
+                           m.slug, 
+                           m.title, 
+                           m.year_of_release, 
+                           string_agg(distinct g.name, ',') as genres,
+                           ROUND(AVG(mr.rating), 1) as rating,
+                           ur.rating as user_rating
+                       FROM 
+                           movies m 
+                             INNER JOIN movies_genres g ON m.id = g.movie_id
+                             LEFT JOIN ratings mr ON mr.movie_id = m.id
+                             LEFT JOIN ratings ur ON ur.user_id = @userId 
+                                                         and ur.movie_id = m.id
+                       WHERE 
+                           (@title is null or m.title ilike ('%' || @title || '%'))
+                           AND (@yearOfRelease is null or m.year_of_release = @yearOfRelease)  
+                       GROUP BY 
+                           id, 
+                           user_rating 
+                           {orderBy}
+                   """;
         var result = await connection.QueryAsync(
             new CommandDefinition(sql, new
                 {
