@@ -1,12 +1,16 @@
 using System.Data;
 using System.Globalization;
+using System.Text.Json;
 using Dapper;
+using Microsoft.Extensions.Logging;
 using Movies.Application.Database;
 using Movies.Application.Models;
 
 namespace Movies.Application.Repositories;
 
-public class MovieRepository(IDbConnectionFactory dbConnectionFactory) : IMovieRepository
+public class MovieRepository(
+    IDbConnectionFactory dbConnectionFactory,
+    ILogger<MovieRepository> logger) : IMovieRepository
 {
     public async Task<bool> CreateAsync(Movie movie, CancellationToken cancellationToken = default)
     {
@@ -33,8 +37,9 @@ public class MovieRepository(IDbConnectionFactory dbConnectionFactory) : IMovieR
         return result > 0;
     }
 
-    public async Task<IEnumerable<Movie>> GetAllAsync(Guid? userId = null, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Movie>> GetAllAsync(GetAllMoviesOptions options, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Getting all movies with options: {}", JsonSerializer.Serialize(options));
         using var connection = await dbConnectionFactory.CreateDbConnectionAsync(cancellationToken);
         const string sql = """
                                SELECT 
@@ -51,13 +56,21 @@ public class MovieRepository(IDbConnectionFactory dbConnectionFactory) : IMovieR
                                      LEFT JOIN ratings mr ON mr.movie_id = m.id
                                      LEFT JOIN ratings ur ON ur.user_id = @userId 
                                                                  and ur.movie_id = m.id
+                               WHERE 
+                                   (@title is null or m.title ilike ('%' || @title || '%'))
+                                   AND (@yearOfRelease is null or m.year_of_release = @yearOfRelease)  
                                GROUP BY 
                                    id, 
                                    user_rating
                            """;
-        
         var result = await connection.QueryAsync(
-            new CommandDefinition(sql, new { userId }, cancellationToken: cancellationToken));
+            new CommandDefinition(sql, new
+                {
+                    userId = options.UserId,
+                    title = options.Title,
+                    yearOfRelease = options.YearOfRelease,
+                }, 
+                cancellationToken: cancellationToken));
 
         return result.Select(x => new Movie
         {

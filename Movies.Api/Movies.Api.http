@@ -35,7 +35,7 @@ Authorization: Bearer {{token}}
 Accept: application/application/json
 
 ### Get All Movies
-GET {{apiBase}}/api/movies
+GET {{apiBase}}/api/movies?title=matrix&year=1999
 Authorization: Bearer {{token}}
 Accept: application/application/json
 
