@@ -71,8 +71,10 @@ public class MovieRepository(
                            AND (@yearOfRelease is null or m.year_of_release = @yearOfRelease)  
                        GROUP BY 
                            id, 
-                           user_rating 
-                           {orderBy}
+                           user_rating
+                       {orderBy}
+                       LIMIT @pageSize OFFSET @pageOffset 
+                           
                    """;
         var result = await connection.QueryAsync(
             new CommandDefinition(sql, new
@@ -80,6 +82,8 @@ public class MovieRepository(
                     userId = options.UserId,
                     title = options.Title,
                     yearOfRelease = options.YearOfRelease,
+                    pageSize = options.PageSize,
+                    pageOffset = ((options.Page - 1) * options.PageSize),
                 }, 
                 cancellationToken: cancellationToken));
 
@@ -191,6 +195,22 @@ public class MovieRepository(
         return await connection.ExecuteScalarAsync<bool>(
             new CommandDefinition("select count(1) from movies where id = @id ", new { id }, 
                 cancellationToken: cancellationToken ));
+    }
+
+    public async Task<int> GetCountAsync(string? title, int? yearOfRelease, CancellationToken cancellationToken = default)
+    {
+        using var connection = await dbConnectionFactory.CreateDbConnectionAsync(cancellationToken);
+        const string sql = """
+                               SELECT  
+                                   COUNT(m.id)
+                               FROM 
+                                   movies m
+                               WHERE 
+                                   (@title is null or m.title ilike ('%' || @title || '%'))
+                                   AND (@yearOfRelease is null or m.year_of_release = @yearOfRelease)
+                           """;
+        return await connection.QuerySingleAsync<int>(new CommandDefinition(sql, 
+            new { title, yearOfRelease }, cancellationToken: cancellationToken));
     }
 
     private static async Task LoadGenres(Movie movie, IDbConnection connection, CancellationToken cancellationToken)

@@ -35,7 +35,7 @@ Authorization: Bearer {{token}}
 Accept: application/application/json
 
 ### Get All Movies
-GET {{apiBase}}/api/movies?sortBy=-year_of_release
+GET {{apiBase}}/api/movies?page=2&pageSize=2&sortBy=-year_of_release
 Authorization: Bearer {{token}}
 Accept: application/application/json
 

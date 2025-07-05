@@ -18,5 +18,10 @@ public class GetAllMoviesOptionsValidator : AbstractValidator<GetAllMoviesOption
         RuleFor(o => o.SortField)
             .Must(s => s is null || AcceptableSortFields.Contains(s, StringComparer.OrdinalIgnoreCase))
             .WithMessage("The sort field must be one of: title, year_of_release");
+        RuleFor(o => o.Page)
+            .GreaterThanOrEqualTo(1);
+        RuleFor(o => o.PageSize)
+            .InclusiveBetween(1, 25)
+            .WithMessage("The page size must be between 1 and 25");
     }
 }
